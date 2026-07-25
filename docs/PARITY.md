@@ -61,6 +61,17 @@ warmup, dynamic re-stacking, `keep_alive`, LIGHT auto-degradation — are
 user-facing and live in the README's *Differences* section; the list below
 covers the finer-grained deltas found by this audit.)
 
+- **CANVAS graph backend (Godot-only).** `graph_shader_controller.gd` can
+  draw the plot on the CPU as one canvas triangle batch instead of a
+  ShaderMaterial, replicating `graph_full.gdshader` (threshold coloring,
+  fill gradient, average/threshold bars, edge fade). It exists because
+  Godot 4.7's Metal driver on iOS 26 mis-binds the `canvas_data` uniform
+  buffer of custom canvas materials (160 bytes bound vs 272 expected),
+  corrupting those draws and any drawn after them. `graph_backend = AUTO`
+  (default) selects it only on iOS with the Metal driver. Known visual
+  delta: the horizontal edge fade interpolates per vertex, so a column
+  straddling the 3% fade boundary deviates by at most one column width.
+  Graphy has no equivalent (Unity's UI material path was never broken).
 - **Graph traces clear on hot-reload.** Changing a graph parameter at runtime
   (color, update rate, background…) rebuilds the FPS/RAM/SCENE graph buffers
   from zero; the trace refills within ~2.5 s at 60 fps / 150 points. Unity
@@ -215,7 +226,7 @@ saved as `name_timestamp.png`; public API name-for-name
 | Runtime/Audio/G_AudioText.cs | scripts/audio/audio_text.gd | parity (round vs truncate) |
 | Runtime/Audio/G_AudioGraph.cs | scripts/audio/audio_graph.gd | parity |
 | Runtime/Advanced/G_AdvancedData.cs | scripts/advanced/advanced_module.gd | parity + Godot data sources |
-| Runtime/Shader/G_GraphShader.cs | scripts/graph_shader_controller.gd | parity |
+| Runtime/Shader/G_GraphShader.cs | scripts/graph_shader_controller.gd | parity + CANVAS fallback backend |
 | Runtime/Graph/G_Graph.cs | folded into the *_graph.gd scripts | structural only |
 | Shaders/GraphStandard.shader | shaders/graph_full.gdshader | parity + bug fix 7 |
 | Shaders/GraphMobile.shader | shaders/graph_light.gdshader | parity |

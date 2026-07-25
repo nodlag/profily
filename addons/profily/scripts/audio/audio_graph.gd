@@ -35,8 +35,9 @@ func init(manager: ProfilyManager, monitor: AudioMonitor) -> void:
 
 func update_parameters() -> void:
 	var mode := _manager.effective_mode()
-	_spectrum.initialize(_spectrum_rect, mode)
-	_peaks.initialize(_peaks_rect, mode)
+	var backend := _manager.effective_graph_backend()
+	_spectrum.initialize(_spectrum_rect, mode, backend)
+	_peaks.initialize(_peaks_rect, mode, backend)
 	_set_series_color(_spectrum, _manager.audio_graph_color)
 	# The peak-hold layer is drawn behind at half opacity so the live bars
 	# stay readable (the original used a second, dimmer material).

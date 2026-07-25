@@ -60,7 +60,54 @@ func _init() -> void:
 		push_error("LIGHT resolution not capped at 128: %d" % light_length)
 		errors += 1
 
+	# CANVAS backend: no material; the plot becomes one canvas triangle batch.
+	var canvas_rect := ColorRect.new()
+	canvas_rect.size = Vector2(300.0, 88.0)
+	var canvas_controller := GraphShaderController.new()
+	canvas_controller.initialize(
+		canvas_rect, ProfilyTypes.Mode.FULL, ProfilyTypes.GraphBackend.CANVAS
+	)
+	canvas_controller.set_resolution(150)
+	canvas_controller.average = 0.5
+	canvas_controller.good_threshold = 0.6
+	canvas_controller.caution_threshold = 0.3
+	if canvas_rect.material != null:
+		push_error("CANVAS backend must not assign a material")
+		errors += 1
+	if canvas_rect.color.a != 0.0:
+		push_error("CANVAS backend must make the ColorRect transparent")
+		errors += 1
+
+	# All points at 0 (or the audio -1 gaps) draw nothing but the three bars,
+	# each split in three quads (4 points / 6 indices per quad).
+	canvas_controller._on_image_draw()
+	if canvas_controller._points.size() != 36 or canvas_controller._indices.size() != 54:
+		push_error("CANVAS bars geometry mismatch: %d points, %d indices" % [
+			canvas_controller._points.size(), canvas_controller._indices.size()])
+		errors += 1
+
+	# A single visible column adds its fill gradient + head quads.
+	canvas_controller.shader_values[50] = 0.8
+	canvas_controller._on_image_draw()
+	if canvas_controller._points.size() != 44 or canvas_controller._indices.size() != 66:
+		push_error("CANVAS column geometry mismatch: %d points, %d indices" % [
+			canvas_controller._points.size(), canvas_controller._indices.size()])
+		errors += 1
+
+	# Re-initializing back to SHADER must restore the material path cleanly.
+	canvas_controller.initialize(canvas_rect, ProfilyTypes.Mode.FULL)
+	if canvas_rect.material == null:
+		push_error("SHADER re-init did not restore the material")
+		errors += 1
+	if canvas_rect.draw.is_connected(canvas_controller._on_image_draw):
+		push_error("SHADER re-init left the draw signal connected")
+		errors += 1
+	if canvas_rect.color != Color.WHITE:
+		push_error("SHADER re-init did not restore the ColorRect color")
+		errors += 1
+
 	color_rect.free()
 	light_rect.free()
+	canvas_rect.free()
 	print("[shader_smoke] %s" % ("OK" if errors == 0 else "FAILED (%d errors)" % errors))
 	quit(errors)

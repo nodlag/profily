@@ -14,6 +14,18 @@ enum Mode {
 	LIGHT = 1,
 }
 
+## How graph modules draw their plots (Godot-only, no Graphy counterpart).
+## SHADER is the parity path: a per-instance ShaderMaterial per graph.
+## CANVAS draws the same plot on the CPU with canvas triangles, for drivers
+## whose custom canvas materials are broken (Godot 4.7 Metal driver on
+## iOS 26). AUTO resolves to CANVAS on iOS with the Metal driver and to
+## SHADER everywhere else.
+enum GraphBackend {
+	AUTO = 0,
+	SHADER = 1,
+	CANVAS = 2,
+}
+
 ## Available modules. SCENE is new in Profily (it does not exist in Graphy).
 enum ModuleType {
 	FPS = 0,

@@ -17,6 +17,10 @@ const SETTINGS: Dictionary = {
 		"type": TYPE_INT, "default": 0,
 		"hint": PROPERTY_HINT_ENUM, "hint_string": "Full,Light",
 	},
+	"profily/general/graph_backend": {
+		"type": TYPE_INT, "default": 0,
+		"hint": PROPERTY_HINT_ENUM, "hint_string": "Auto,Shader,Canvas",
+	},
 	"profily/general/background": {"type": TYPE_BOOL, "default": true},
 	"profily/general/background_color": {"type": TYPE_COLOR, "default": Color(0.0, 0.0, 0.0, 0.333333)},
 	"profily/general/canvas_layer": {

@@ -55,7 +55,7 @@ func init(manager: ProfilyManager, monitor: FpsMonitor) -> void:
 
 
 func update_parameters() -> void:
-	_controller.initialize(self, _manager.effective_mode())
+	_controller.initialize(self, _manager.effective_mode(), _manager.effective_graph_backend())
 	_controller.good_color = _manager.good_fps_color
 	_controller.caution_color = _manager.caution_fps_color
 	_controller.critical_color = _manager.critical_fps_color

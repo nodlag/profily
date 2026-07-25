@@ -35,7 +35,7 @@ func init(manager: ProfilyManager, monitor: SceneMonitor) -> void:
 
 
 func update_parameters() -> void:
-	_controller.initialize(self, _manager.effective_mode())
+	_controller.initialize(self, _manager.effective_mode(), _manager.effective_graph_backend())
 	_controller.good_color = _manager.scene_graph_color
 	_controller.caution_color = _manager.scene_graph_color
 	_controller.critical_color = _manager.scene_graph_color

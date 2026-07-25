@@ -5,7 +5,7 @@
 ### 📈 FPS counter, performance monitor & debugger overlay for Godot 4
 
 [![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org/)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](addons/profily/plugin.cfg)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue)](addons/profily/plugin.cfg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 ![GDScript](https://img.shields.io/badge/GDScript-100%25%20typed-478cbf)
 
@@ -205,6 +205,14 @@ Profily is a faithful port, with a few deliberate adaptations to Godot:
 - On mobile/web with the Compatibility renderer, FULL mode (512-point graphs)
   degrades automatically to LIGHT (128) to respect GPU uniform limits — the
   same remedy the original shipped as its "Mobile" shader.
+- On iOS with the Metal driver, graphs are drawn by a **CPU canvas fallback**
+  instead of ShaderMaterials: Godot 4.7's Metal driver on iOS 26 mis-binds
+  custom canvas materials (`canvas_data` buffer: 160 bytes bound, 272
+  expected — an assertion under Xcode's Metal validation), corrupting the
+  graph draws and anything drawn after them. The fallback renders the same
+  plot with canvas triangles at negligible cost; override the automatic
+  choice with `profily/general/graph_backend` or `Profily.graph_backend`
+  (`AUTO` / `SHADER` / `CANVAS`).
 - The dB readout uses the bus peak volume (not waveform RMS like Unity's
   `GetOutputData`) to avoid inserting a second effect on the bus.
 - The stacked module group **re-stacks dynamically**: hidden (OFF/BACKGROUND)

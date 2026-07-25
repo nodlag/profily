@@ -25,6 +25,7 @@ const ModuleType := ProfilyTypes.ModuleType
 const ModuleState := ProfilyTypes.ModuleState
 const ModulePosition := ProfilyTypes.ModulePosition
 const ModulePreset := ProfilyTypes.ModulePreset
+const GraphBackend := ProfilyTypes.GraphBackend
 
 const AudioMonitor := preload("audio/audio_monitor.gd")
 const SafeArea := preload("safe_area.gd")
@@ -95,6 +96,13 @@ static var instance: ProfilyManager = null
 @export var profily_mode: ProfilyTypes.Mode = ProfilyTypes.Mode.FULL:
 	set(value):
 		profily_mode = value
+		_refresh_all_modules()
+## How graphs are drawn. AUTO uses the CPU CANVAS fallback on iOS with the
+## Metal driver (whose custom canvas materials are broken in Godot 4.7) and
+## the Graphy-parity SHADER path everywhere else.
+@export var graph_backend: ProfilyTypes.GraphBackend = ProfilyTypes.GraphBackend.AUTO:
+	set(value):
+		graph_backend = value
 		_refresh_all_modules()
 @export var background := true:
 	set(value):
@@ -313,6 +321,7 @@ var orphan_node_count: float:
 
 var _module_preset: ProfilyTypes.ModulePreset = ProfilyTypes.ModulePreset.FPS_BASIC_ADVANCED_FULL
 var _mode_degraded_warned := false
+var _backend_fallback_warned := false
 var _ready_done := false
 var _is_duplicate := false
 var _last_ticks_usec := 0
@@ -499,6 +508,22 @@ func effective_mode() -> ProfilyTypes.Mode:
 	return profily_mode
 
 
+## The backend graphs must draw with. AUTO degrades to the CPU CANVAS drawer
+## on iOS with the Metal driver, where Godot 4.7 mis-binds the canvas_data
+## uniform buffer of custom canvas materials (160 bytes bound vs 272
+## expected), corrupting every draw that uses a ShaderMaterial.
+func effective_graph_backend() -> ProfilyTypes.GraphBackend:
+	if graph_backend != ProfilyTypes.GraphBackend.AUTO:
+		return graph_backend
+	if OS.has_feature("ios") \
+			and RenderingServer.get_current_rendering_driver_name().begins_with("metal"):
+		if not _backend_fallback_warned:
+			_backend_fallback_warned = true
+			push_warning("[Profily] Graphs drawn with the CPU canvas fallback (iOS Metal driver).")
+		return ProfilyTypes.GraphBackend.CANVAS
+	return ProfilyTypes.GraphBackend.SHADER
+
+
 # --- Internals ---
 
 ## Applies every profily/* key present in ProjectSettings. Keys that were
@@ -509,6 +534,8 @@ func _load_settings() -> void:
 		"profily/general/enabled_on_startup", enabled_on_startup)
 	profily_mode = ProfilySettings.value_or(
 		"profily/general/mode", profily_mode) as ProfilyTypes.Mode
+	graph_backend = ProfilySettings.value_or(
+		"profily/general/graph_backend", graph_backend) as ProfilyTypes.GraphBackend
 	background = ProfilySettings.value_or("profily/general/background", background)
 	background_color = ProfilySettings.value_or(
 		"profily/general/background_color", background_color)

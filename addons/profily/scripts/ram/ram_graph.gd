@@ -44,9 +44,10 @@ func init(manager: ProfilyManager, monitor: RamMonitor) -> void:
 
 func update_parameters() -> void:
 	var mode := _manager.effective_mode()
-	_allocated.initialize(_allocated_rect, mode)
-	_reserved.initialize(_reserved_rect, mode)
-	_vram.initialize(_vram_rect, mode)
+	var backend := _manager.effective_graph_backend()
+	_allocated.initialize(_allocated_rect, mode, backend)
+	_reserved.initialize(_reserved_rect, mode, backend)
+	_vram.initialize(_vram_rect, mode, backend)
 	# Monochrome series: every threshold color is the series color and the
 	# thresholds stay at 0 (no threshold/average bars, parity with Graphy).
 	_set_series_color(_allocated, _manager.allocated_ram_color)
