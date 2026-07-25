@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://addons/profily/scripts/advanced/advanced_module.gd" id="1_module"]
+[ext_resource type="StyleBoxFlat" path="res://addons/profily/styles/background_stylebox.tres" id="2_bg"]
+[ext_resource type="FontFile" path="res://addons/profily/fonts/Roboto-Regular.ttf" id="3_roboto"]
+
+[node name="AdvancedModule" type="PanelContainer"]
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_bg")
+script = ExtResource("1_module")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 12
+
+[node name="Lines" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="CpuLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "CPU:"
+
+[node name="RamLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "RAM:"
+
+[node name="GpuLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "GPU:"
+
+[node name="ApiLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Graphics API:"
+
+[node name="VramLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "VRAM used:"
+
+[node name="ScreenLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Screen:"
+
+[node name="WindowLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Window:"
+
+[node name="OsLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "OS:"
+
+[node name="GodotLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Godot:"
+
+[node name="XrLabel" type="Label" parent="Margin/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+theme_override_fonts/font = ExtResource("3_roboto")
+theme_override_font_sizes/font_size = 25
+text = "XR:"

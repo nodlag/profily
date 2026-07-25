@@ -1,0 +1,87 @@
+extends ProfilyModule
+## FPS module root: visibility state machine and background switching.
+## Port of G_FpsManager (Graphy, MIT (c) 2018 Martin Pane).
+## Godot port (c) 2026 Javier Garrido (nodlag), MIT.
+
+const FpsGraph := preload("fps_graph.gd")
+const FpsMonitor := preload("fps_monitor.gd")
+const FpsText := preload("fps_text.gd")
+
+@onready var _monitor: FpsMonitor = %Monitor
+@onready var _bg_full: Panel = %BackgroundFull
+@onready var _bg_text: Panel = %BackgroundText
+@onready var _bg_basic: Panel = %BackgroundBasic
+@onready var _graph: FpsGraph = %Graph
+@onready var _text: FpsText = %Text
+# Hidden in BASIC state (parity with the original's m_nonBasicTextGameObjects,
+# which keeps only the big number + caption visible).
+@onready var _non_basic_labels: Array[Control] = [
+	%MsLabel, %AvgLabel, %OnePercentLabel, %Zero1PercentLabel,
+]
+
+
+func monitor() -> Node:
+	return _monitor
+
+
+func effective_height() -> float:
+	match _module_state:
+		ProfilyTypes.ModuleState.TEXT:
+			return _bg_text.size.y
+		ProfilyTypes.ModuleState.BASIC:
+			return _bg_basic.size.y
+		_:
+			return super()
+
+
+func effective_width() -> float:
+	if _module_state == ProfilyTypes.ModuleState.BASIC:
+		return _bg_basic.size.x
+	return super()
+
+
+func update_parameters() -> void:
+	_text.update_parameters()
+	_graph.update_parameters()
+	for bg: Panel in [_bg_full, _bg_text, _bg_basic]:
+		bg.self_modulate = _manager.background_color
+	_apply_state()
+
+
+func _on_init() -> void:
+	_text.init(_manager, _monitor)
+	_graph.init(_manager, _monitor)
+
+
+func _initial_state() -> ProfilyTypes.ModuleState:
+	return _manager.fps_module_state
+
+
+func _apply_state() -> void:
+	if _manager == null:
+		return # Not initialized yet; init() re-applies the state.
+	var state := _module_state
+	visible = state != ProfilyTypes.ModuleState.OFF \
+			and state != ProfilyTypes.ModuleState.BACKGROUND
+	var show_graph := state == ProfilyTypes.ModuleState.FULL
+	var show_text := state in [
+		ProfilyTypes.ModuleState.FULL,
+		ProfilyTypes.ModuleState.TEXT,
+		ProfilyTypes.ModuleState.BASIC,
+	]
+
+	_graph.visible = show_graph
+	_text.visible = show_text
+	for label: Control in _non_basic_labels:
+		label.visible = state != ProfilyTypes.ModuleState.BASIC
+
+	var show_background := _manager.background
+	_bg_full.visible = show_background and state == ProfilyTypes.ModuleState.FULL
+	_bg_text.visible = show_background and state == ProfilyTypes.ModuleState.TEXT
+	_bg_basic.visible = show_background and state == ProfilyTypes.ModuleState.BASIC
+
+	# BACKGROUND keeps collecting data with the UI hidden; OFF stops everything.
+	var collect := state != ProfilyTypes.ModuleState.OFF
+	_monitor.set_process(collect)
+	_graph.set_process(show_graph)
+	_text.set_process(show_text)

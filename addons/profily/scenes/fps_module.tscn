@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://addons/profily/scripts/fps/fps_manager.gd" id="1_manager"]
+[ext_resource type="Script" path="res://addons/profily/scripts/fps/fps_monitor.gd" id="2_monitor"]
+[ext_resource type="Script" path="res://addons/profily/scripts/fps/fps_graph.gd" id="3_graph"]
+[ext_resource type="Script" path="res://addons/profily/scripts/fps/fps_text.gd" id="4_text"]
+[ext_resource type="StyleBoxFlat" path="res://addons/profily/styles/background_stylebox.tres" id="5_bg"]
+[ext_resource type="FontFile" path="res://addons/profily/fonts/Roboto-Regular.ttf" id="6_roboto"]
+[ext_resource type="FontFile" path="res://addons/profily/fonts/Roboto-Bold.ttf" id="7_roboto_bold"]
+
+[node name="FpsModule" type="Control"]
+offset_right = 330.0
+offset_bottom = 172.6
+mouse_filter = 2
+script = ExtResource("1_manager")
+
+[node name="BackgroundFull" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 172.6
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_bg")
+
+[node name="BackgroundText" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 72.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_bg")
+
+[node name="BackgroundBasic" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 175.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_bg")
+
+[node name="Monitor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_monitor")
+
+[node name="Graph" type="ColorRect" parent="."]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 74.0
+offset_right = 315.0
+offset_bottom = 162.6
+mouse_filter = 2
+script = ExtResource("3_graph")
+
+[node name="Text" type="Control" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 172.6
+mouse_filter = 2
+script = ExtResource("4_text")
+
+[node name="FpsLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 2.0
+offset_right = 100.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("7_roboto_bold")
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="FpsTitle" type="Label" parent="Text"]
+offset_left = 105.0
+offset_top = 14.0
+offset_right = 165.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "FPS"
+
+[node name="MsLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 190.0
+offset_top = 8.0
+offset_right = 315.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 28
+text = "0.0 ms"
+horizontal_alignment = 2
+
+[node name="AvgLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 44.0
+offset_right = 115.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "AVG 0"
+
+[node name="OnePercentLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 115.0
+offset_top = 44.0
+offset_right = 215.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "1% 0"
+horizontal_alignment = 1
+
+[node name="Zero1PercentLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 215.0
+offset_top = 44.0
+offset_right = 315.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "0.1% 0"
+horizontal_alignment = 2

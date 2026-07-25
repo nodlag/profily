@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://qmnu1ehm866e"]
+
+[ext_resource type="Script" uid="uid://bi8p1774mfsks" path="res://addons/profily/scripts/profily_manager.gd" id="1_manager"]
+[ext_resource type="Script" uid="uid://bp50rniwg8de5" path="res://addons/profily/scripts/safe_area.gd" id="2_safearea"]
+[ext_resource type="PackedScene" path="res://addons/profily/scenes/fps_module.tscn" id="3_fps"]
+[ext_resource type="PackedScene" path="res://addons/profily/scenes/ram_module.tscn" id="4_ram"]
+[ext_resource type="PackedScene" path="res://addons/profily/scenes/audio_module.tscn" id="5_audio"]
+[ext_resource type="PackedScene" path="res://addons/profily/scenes/advanced_module.tscn" id="6_advanced"]
+[ext_resource type="PackedScene" path="res://addons/profily/scenes/scene_module.tscn" id="7_scene"]
+[ext_resource type="Script" uid="uid://dvo2cgxuv2duu" path="res://addons/profily/scripts/debugger/profily_debugger.gd" id="8_debugger"]
+
+[node name="Profily" type="CanvasLayer" unique_id=1133134365]
+process_mode = 3
+layer = 128
+script = ExtResource("1_manager")
+
+[node name="SafeArea" type="Control" parent="." unique_id=778236312]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("2_safearea")
+
+[node name="FpsModule" parent="SafeArea" unique_id=642705494 instance=ExtResource("3_fps")]
+anchors_preset = 0
+
+[node name="RamModule" parent="SafeArea" unique_id=949868620 instance=ExtResource("4_ram")]
+anchors_preset = 0
+
+[node name="AudioModule" parent="SafeArea" unique_id=1244480673 instance=ExtResource("5_audio")]
+anchors_preset = 0
+
+[node name="SceneModule" parent="SafeArea" unique_id=517759704 instance=ExtResource("7_scene")]
+anchors_preset = 0
+
+[node name="AdvancedModule" parent="SafeArea" unique_id=1905639596 instance=ExtResource("6_advanced")]
+layout_mode = 0
+
+[node name="Debugger" type="Node" parent="." unique_id=1966452165]
+script = ExtResource("8_debugger")

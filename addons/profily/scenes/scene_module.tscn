@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://addons/profily/scripts/scene/scene_manager.gd" id="1_manager"]
+[ext_resource type="Script" path="res://addons/profily/scripts/scene/scene_monitor.gd" id="2_monitor"]
+[ext_resource type="Script" path="res://addons/profily/scripts/scene/scene_graph.gd" id="3_graph"]
+[ext_resource type="Script" path="res://addons/profily/scripts/scene/scene_text.gd" id="4_text"]
+[ext_resource type="StyleBoxFlat" path="res://addons/profily/styles/background_stylebox.tres" id="5_bg"]
+[ext_resource type="FontFile" path="res://addons/profily/fonts/Roboto-Regular.ttf" id="6_roboto"]
+
+[node name="SceneModule" type="Control"]
+offset_right = 330.0
+offset_bottom = 166.3
+mouse_filter = 2
+script = ExtResource("1_manager")
+
+[node name="BackgroundFull" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 166.3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_bg")
+
+[node name="BackgroundText" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 116.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_bg")
+
+[node name="Monitor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_monitor")
+
+[node name="Graph" type="ColorRect" parent="."]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 116.0
+offset_right = 315.0
+offset_bottom = 156.3
+mouse_filter = 2
+script = ExtResource("3_graph")
+
+[node name="Text" type="Control" parent="."]
+unique_name_in_owner = true
+offset_right = 330.0
+offset_bottom = 166.3
+mouse_filter = 2
+script = ExtResource("4_text")
+
+[node name="DrawCallsLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 4.0
+offset_right = 315.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 28
+text = "Draw calls 0"
+
+[node name="ObjectsLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 36.0
+offset_right = 315.0
+offset_bottom = 62.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Objects 0 · Prims 0"
+
+[node name="NodesLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 62.0
+offset_right = 315.0
+offset_bottom = 88.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Nodes 0 · Orphans 0"
+
+[node name="PhysicsLabel" type="Label" parent="Text"]
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 88.0
+offset_right = 315.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("6_roboto")
+theme_override_font_sizes/font_size = 25
+text = "Phys 2D 0 · 3D 0"

@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://c252nyai2dxjv"]
+
+[ext_resource type="Script" uid="uid://1fc1m2rpv821" path="res://demo/demo.gd" id="1_fydpr"]
+[ext_resource type="Script" uid="uid://dk4evlnkrirvc" path="res://demo/stress_spinner.gd" id="2_gqypa"]
+[ext_resource type="PackedScene" uid="uid://qmnu1ehm866e" path="res://addons/profily/profily.tscn" id="3_profily"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_music"]
+buffer_length = 0.2
+
+[node name="Demo" type="Node3D" unique_id=995383161]
+script = ExtResource("1_fydpr")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1205969122]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=38166518]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 8, 0)
+shadow_enabled = true
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1492542453]
+stream = SubResource("AudioStreamGenerator_music")
+
+[node name="Spinner" type="Node3D" parent="." unique_id=1370120255]
+script = ExtResource("2_gqypa")
+
+[node name="Profily" parent="." unique_id=1785133377 instance=ExtResource("3_profily")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1459217789]
+
+[node name="Panel" type="PanelContainer" parent="UI" unique_id=1883048400]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -420.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="UI/Panel" unique_id=104263199]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Rows" type="VBoxContainer" parent="UI/Panel/Margin" unique_id=1673530446]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UI/Panel/Margin/Rows" unique_id=808912059]
+layout_mode = 2
+text = "Profily demo"
+
+[node name="TogglePresetButton" type="Button" parent="UI/Panel/Margin/Rows" unique_id=1708270674]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Preset toggle (Ctrl+G)"
+
+[node name="ToggleActiveButton" type="Button" parent="UI/Panel/Margin/Rows" unique_id=1462172176]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Show/hide (Ctrl+H)"
+
+[node name="PositionRow" type="HBoxContainer" parent="UI/Panel/Margin/Rows" unique_id=157191698]
+layout_mode = 2
+
+[node name="PositionLabel" type="Label" parent="UI/Panel/Margin/Rows/PositionRow" unique_id=1483698981]
+layout_mode = 2
+text = "Corner"
+
+[node name="PositionOption" type="OptionButton" parent="UI/Panel/Margin/Rows/PositionRow" unique_id=333459298]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModuleRow" type="HBoxContainer" parent="UI/Panel/Margin/Rows" unique_id=793163719]
+layout_mode = 2
+
+[node name="ModuleOption" type="OptionButton" parent="UI/Panel/Margin/Rows/ModuleRow" unique_id=918803985]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StateOption" type="OptionButton" parent="UI/Panel/Margin/Rows/ModuleRow" unique_id=821112155]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpawnRow" type="HBoxContainer" parent="UI/Panel/Margin/Rows" unique_id=1672874813]
+layout_mode = 2
+
+[node name="SpawnButton" type="Button" parent="UI/Panel/Margin/Rows/SpawnRow" unique_id=1024007890]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spawn 500 nodes"
+
+[node name="FreeButton" type="Button" parent="UI/Panel/Margin/Rows/SpawnRow" unique_id=1893423585]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Free spawned"
+
+[node name="OrphanButton" type="Button" parent="UI/Panel/Margin/Rows" unique_id=289520949]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Create orphan node"
+
+[node name="BurnRow" type="HBoxContainer" parent="UI/Panel/Margin/Rows" unique_id=1869101318]
+layout_mode = 2
+
+[node name="BurnLabel" type="Label" parent="UI/Panel/Margin/Rows/BurnRow" unique_id=418902432]
+layout_mode = 2
+text = "CPU burn"
+
+[node name="BurnSlider" type="HSlider" parent="UI/Panel/Margin/Rows/BurnRow" unique_id=143613530]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 30.0
+
+[node name="PacketButton" type="Button" parent="UI/Panel/Margin/Rows" unique_id=310254481]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Debug packet: FPS<25 → warn+shot"
+
+[node name="StatusLabel" type="Label" parent="UI/Panel/Margin/Rows" unique_id=352210591]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ready"
+autowrap_mode = 2
