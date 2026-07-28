@@ -71,7 +71,9 @@ by [Martín Pane](https://github.com/Tayx94) (MIT), winner of the
 
 ## Installation
 
-1. **Download** this repository (`Code ▾ → Download ZIP`) or clone it.
+1. **Get Profily** from the
+   [**Godot Asset Store**](https://store.godotengine.org/asset/javier-garrido/profily/)
+   or from this repository (`Code ▾ → Download ZIP`, or clone it).
 2. **Copy** the `addons/profily/` folder into the `addons/` directory of your
    Godot project (create it if it does not exist).
 3. *(Recommended)* **Enable the plugin** under
