@@ -262,7 +262,9 @@ Made by **Javier Garrido (nodlag)**.
 - 🌐 Portfolio: [nodlag.github.io](https://nodlag.github.io/)
 - 📫 Contact: [nodlag@gmail.com](mailto:nodlag@gmail.com)
 
-If Profily helps your project, consider giving it a ⭐ — it really helps!
+If Profily helps your project, consider leaving a review on the
+[**Godot Asset Store**](https://store.godotengine.org/asset/javier-garrido/profily/)
+and a ⭐ on GitHub — it really helps!
 
 ## License & attribution
 

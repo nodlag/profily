@@ -11,6 +11,7 @@ extends Node3D
 const TONE_FREQS: Array[float] = [220.0, 440.0, 880.0]
 const TONE_LFO_SPEEDS: Array[float] = [0.7, 1.3, 2.9]
 const SPAWN_BATCH := 500
+const STORE_URL := "https://store.godotengine.org/asset/javier-garrido/profily/"
 
 @onready var _camera: Camera3D = $Camera3D
 @onready var _music: AudioStreamPlayer = $Music
@@ -25,6 +26,7 @@ const SPAWN_BATCH := 500
 @onready var _orphan_button: Button = %OrphanButton
 @onready var _burn_slider: HSlider = %BurnSlider
 @onready var _packet_button: Button = %PacketButton
+@onready var _rate_button: Button = %RateButton
 @onready var _status_label: Label = %StatusLabel
 
 ## Typed access to the manager: works identically whether Profily runs as the
@@ -85,6 +87,7 @@ func _setup_ui() -> void:
 	_free_button.pressed.connect(_free_spawned)
 	_orphan_button.pressed.connect(_create_orphan)
 	_packet_button.pressed.connect(_add_debug_packet)
+	_rate_button.pressed.connect(_open_store_page)
 
 	_profily.preset_changed.connect(func(preset: ProfilyTypes.ModulePreset) -> void:
 		_status_label.text = "Preset: %s" % ProfilyTypes.ModulePreset.keys()[preset])
@@ -155,6 +158,11 @@ func _add_debug_packet() -> void:
 	packet.executed.connect(func() -> void:
 		_status_label.text = "Debug packet fired! (see output & user://)")
 	_status_label.text = "Packet armed: FPS<25 → warn+screenshot"
+
+
+func _open_store_page() -> void:
+	OS.shell_open(STORE_URL)
+	_status_label.text = "Thanks! Opening the Asset Store…"
 
 
 func _burn_cpu() -> void:

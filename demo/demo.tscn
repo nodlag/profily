@@ -128,6 +128,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Debug packet: FPS<25 → warn+shot"
 
+[node name="RateButton" type="Button" parent="UI/Panel/Margin/Rows" unique_id=1246813579]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rate Profily on the Asset Store"
+
 [node name="StatusLabel" type="Label" parent="UI/Panel/Margin/Rows" unique_id=352210591]
 unique_name_in_owner = true
 layout_mode = 2
