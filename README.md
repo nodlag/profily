@@ -36,6 +36,7 @@ by [Martín Pane](https://github.com/Tayx94) (MIT), winner of the
 - [Differences from Graphy (Unity)](#differences-from-graphy-unity)
 - [Known limitations](#known-limitations)
 - [Demo & development](#demo--development)
+- [AI usage](#ai-usage)
 - [Author](#author)
 - [License & attribution](#license--attribution)
 
@@ -254,6 +255,14 @@ checks (`PROFILY_PROBE_OUT`, `PROFILY_PROBE_FRAMES`, `PROFILY_PROBE_SETUP`
 environment variables).
 
 Issues and pull requests are welcome!
+
+## AI usage
+
+Generative AI was used as an assistant for the written and testing
+materials of this project: drafting and polishing the README and
+documentation, and building the verification probes — the headless smoke
+tests and the screenshot probe used to validate the addon on each release.
+All AI-assisted content was reviewed, edited and verified by the author.
 
 ## Author
 
