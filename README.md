@@ -2,7 +2,7 @@
 
 # Profily
 
-### 📈 FPS counter, performance monitor & debugger overlay for Godot 4
+### FPS counter, performance monitor & debugger overlay for Godot 4
 
 [![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![Version](https://img.shields.io/badge/version-1.0.2-blue)](addons/profily/plugin.cfg)
@@ -42,33 +42,33 @@ by [Martín Pane](https://github.com/Tayx94) (MIT), winner of the
 
 ## Features
 
-- 🎯 **FPS module** — current FPS, ms per frame, average, **1% low** and
+- **FPS module** — current FPS, ms per frame, average, **1% low** and
   **0.1% low** over a 1024-sample window, color-coded by configurable
   thresholds, plus a shader-based graph with a decaying-peak scale (faithful
   port of Graphy's graph shader).
-- 🧠 **RAM module** — static memory, static peak and **VRAM** usage as three
+- **RAM module** — static memory, static peak and **VRAM** usage as three
   overlaid graph series.
-- 🔊 **Audio module** — dB readout and an 81-bar **spectrum analyzer** with
+- **Audio module** — dB readout and an 81-bar **spectrum analyzer** with
   peak-hold for any audio bus. The `AudioEffectSpectrumAnalyzer` is added to
   the bus only while the module is active and removed when it is not.
-- 🖥️ **Advanced module** — CPU model & core count, physical RAM, GPU,
+- **Advanced module** — CPU model & core count, physical RAM, GPU,
   graphics API and renderer, VRAM used / max texture size, screen & window
   info, OS, Godot version, and XR target size when active. Auto-sizing panel.
-- 🎬 **Scene module** *(Godot exclusive, off by default)* — **draw calls**
+- **Scene module** *(Godot exclusive, off by default)* — **draw calls**
   (with graph), objects & primitives in frame, node and orphan node counts,
   active physics objects.
-- 🐞 **Debugger** — declarative condition packets (*"if FPS < 25 for the
+- **Debugger** — declarative condition packets (*"if FPS < 25 for the
   first time after 2 s → warning + screenshot + callback"*) with ALL/ANY
   evaluation, one-shot or recurring execution, and signals.
-- 🎛️ **12 rotating presets** and per-module **FULL / TEXT / BASIC /
+- **12 rotating presets** and per-module **FULL / TEXT / BASIC /
   BACKGROUND / OFF** states.
-- 📐 **4 anchored corners** (+ FREE placement) with safe-area support for
+- **4 anchored corners** (+ FREE placement) with safe-area support for
   notched screens, background toggle and UI scaling.
-- ⚡ **Hot-reloadable everything** — every option can be changed at runtime
+- **Hot-reloadable everything** — every option can be changed at runtime
   from code, and configured beforehand in the Inspector or Project Settings.
-- 🧩 **Two integration paths** — enable the plugin (autoload) *or* drop a
+- **Two integration paths** — enable the plugin (autoload) *or* drop a
   scene where you need it. Both can coexist safely.
-- ✅ **100% statically typed GDScript**, zero dependencies, MIT licensed.
+- **100% statically typed GDScript**, zero dependencies, MIT licensed.
 
 ## Installation
 
@@ -268,12 +268,12 @@ All AI-assisted content was reviewed, edited and verified by the author.
 
 Made by **Javier Garrido (nodlag)**.
 
-- 🌐 Portfolio: [nodlag.github.io](https://nodlag.github.io/)
-- 📫 Contact: [nodlag@gmail.com](mailto:nodlag@gmail.com)
+- Portfolio: [nodlag.github.io](https://nodlag.github.io/)
+- Contact: [nodlag@gmail.com](mailto:nodlag@gmail.com)
 
 If Profily helps your project, consider leaving a review on the
 [**Godot Asset Store**](https://store.godotengine.org/asset/javier-garrido/profily/)
-and a ⭐ on GitHub — it really helps!
+and a star on GitHub — it really helps!
 
 ## License & attribution
 
