@@ -168,8 +168,10 @@ per-instance material creation, full-array uploads with a length uniform,
 resolution clamped to 10..array size.
 
 **FPS** — 1024-sample ring; current FPS = `round(1 / unscaled_delta)`; AVG =
-window mean; 1% low = mean of the worst samples of a per-frame sorted copy
-(10 at full buffer); 0.1% low = the single worst; text at 3 Hz showing its
+window mean; 1% low = mean of the worst samples of the sorted window (10 at
+full buffer; the sorted mirror is maintained incrementally per sample instead
+of re-sorting a copy each frame like the original — the order and every
+derived value are identical); 0.1% low = the single worst; text at 3 Hz showing its
 own interval average and `%.1f` ms; per-label threshold coloring (the fps and
 ms labels colored by the interval fps, AVG/1%/0.1% by their own values);
 graph shift-left with a decaying ceiling (instant rise, −1/frame decay,

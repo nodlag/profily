@@ -37,6 +37,8 @@ var _warmup_left := WARMUP_SECONDS
 
 func _ready() -> void:
 	_samples.resize(SAMPLES_CAPACITY)
+	# Sorted mirror of _samples, kept in sync incrementally in _process().
+	_samples_sorted.resize(SAMPLES_CAPACITY)
 
 
 func _process(_delta: float) -> void:
@@ -58,18 +60,22 @@ func _process(_delta: float) -> void:
 
 	# Circular buffer insert, with a running sum for the average.
 	var fps_int := int(current_fps)
-	_samples_sum += fps_int - _samples[_sample_index]
+	var outgoing := _samples[_sample_index]
+	_samples_sum += fps_int - outgoing
 	_samples[_sample_index] = fps_int
 	_sample_index = (_sample_index + 1) % SAMPLES_CAPACITY
 	_samples_count = mini(_samples_count + 1, SAMPLES_CAPACITY)
 
 	average_fps = float(_samples_sum) / float(_samples_count)
 
-	# Percentile lows: sort a copy each frame (like the original; the sort is
-	# a C++ PackedInt32Array.sort(), cheap for 1024 entries). Empty slots are
-	# zeros that end up at the front of the ascending sort and are skipped.
-	_samples_sorted = _samples.duplicate()
-	_samples_sorted.sort()
+	# Percentile lows over the sorted mirror, updated by swapping the outgoing
+	# sample for the incoming one via binary search (implementation deviation:
+	# the original re-sorts a copy of the window every frame; the resulting
+	# order — and therefore every derived value — is identical). Empty slots
+	# are zeros that sit at the front of the ascending order and are skipped.
+	if outgoing != fps_int:
+		_samples_sorted.remove_at(_samples_sorted.bsearch(outgoing))
+		_samples_sorted.insert(_samples_sorted.bsearch(fps_int), fps_int)
 	var start := SAMPLES_CAPACITY - _samples_count
 	@warning_ignore("integer_division")
 	var to_take := mini(SAMPLES_CAPACITY / 100, _samples_count)

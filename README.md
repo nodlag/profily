@@ -5,7 +5,7 @@
 ### FPS counter, performance monitor & debugger overlay for Godot 4
 
 [![Godot 4.6+](https://img.shields.io/badge/Godot-4.6%2B-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org/)
-[![Version](https://img.shields.io/badge/version-1.0.2-blue)](addons/profily/plugin.cfg)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](addons/profily/plugin.cfg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 ![GDScript](https://img.shields.io/badge/GDScript-100%25%20typed-478cbf)
 
